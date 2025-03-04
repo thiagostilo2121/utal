@@ -4,21 +4,21 @@
 [![PyPi](https://img.shields.io/badge/pypi-%23ececec.svg?style=for-the-badge&logo=pypi&logoColor=1f73b7)]()
 [![LICENSE](https://img.shields.io/badge/LICENSE-MIT-%23ececec.svg?style=for-the-badge&logo=LICENSE&logoColor=1f73b7)](LICENSE)
 
-PyUTAL (*Unofficial TikTok Automation Library*) es una librería de Python diseñada para desarrollar chatbots o automatizaciones en la bandeja de mensajes de TikTok (no en TikTok Live) utilizando Selenium.
+PyUTAL (*Unofficial TikTok Automation Library*) is a Python library designed to develop chatbots or automate TikTok's direct messages (not TikTok Live) using Selenium.
 
-## Instalación
+## Installation
 
-Para instalar PyUTAL, se recomienda primero crear un entorno virtual para aislar las dependencias del proyecto. Sigue estos pasos:
+To install PyUTAL, it is recommended to first create a virtual environment to isolate project dependencies. Follow these steps:
 
-1. Instalar `virtualenv` si aún no lo tienes:
+1. Install `virtualenv` if you don’t have it yet:
    ```sh
    pip install virtualenv
    ```
-2. Crear un entorno virtual:
+2. Create a virtual environment:
    ```sh
    python3 -m venv venv
    ```
-3. Activar el entorno virtual:
+3. Activate the virtual environment:
    - **Windows:**
      ```sh
      venv\Scripts\activate
@@ -27,17 +27,17 @@ Para instalar PyUTAL, se recomienda primero crear un entorno virtual para aislar
      ```sh
      source venv/bin/activate
      ```
-4. Instalar `utal` dentro del entorno virtual:
+4. Install `utal` inside the virtual environment:
    ```sh
    pip install utal
    ```
 
-## Comienzo rápido
+## Quick Start
 
-A continuación, se presenta una guía para iniciar un proyecto simple con `utal`.
+Here is a guide to setting up a simple project using `utal`.
 
-1. Inicializa el `webdriver` con Selenium **sin** el modo `headless` la primera vez para poder iniciar sesión en la cuenta del bot.
-2. Luego, usa el siguiente código:
+1. Initialize the `webdriver` with Selenium **without** headless mode the first time to log in manually.
+2. Then, use the following code:
 
 ```python
 import os
@@ -51,33 +51,62 @@ def startup_selenium():
 
     options = webdriver.ChromeOptions()
     options.add_experimental_option("detach", True)
-    options.add_argument("--headless")  # Ejecutar sin headless la primera vez
+    options.add_argument("--headless")  # Run without headless mode the first time
     options.add_argument(rf"user-data-dir={USERDATADIR}")
     
     driver = webdriver.Chrome(service=Service(DRIVERPATH), options=options)
-    return driver  # Importante retornar el driver
+    return driver  # Important to return the driver
 
 def main(driver):
     driver.get("https://tiktok.com/messages")
     
-    while True:  # Importante usar bucles
-        message = ut.Client.listen(driver=driver)  # Devuelve todos los mensajes
+    while True:  # Important to use loops
+        message = ut.Client.listen(driver=driver)  # Retrieves all messages
         print(message)
 
-        if message == "hello": 
-          user_nickaname = ut.Conversation.get_user_nickname(driver)
-          ut.Conversation.send(driver, f"Hi, {user_nickname} 🌟")
+        if message and message == "hello":  
+            user_nickname = ut.Conversation.get_user_nickname(driver)
+            ut.Conversation.send(driver, f"Hi, {user_nickname} 🌟")
 
 if __name__ == "__main__":
     driver = startup_selenium()
     main(driver)
 ```
 
-## Notas importantes
-- **El modo `headless` debe desactivarse la primera vez** para poder iniciar sesión manualmente en TikTok y guardar los datos de sesión.
-- **Es necesario utilizar un bucle** para que el bot pueda escuchar continuamente los mensajes entrantes.
+- Console output (if the user sends "hello")
 
-## 
+```sh
+hello
+```
 
-## Licencia
-Este proyecto está licenciado bajo la **MIT License**. Consulta el archivo [LICENSE](LICENSE) para más detalles.
+- Bot response (if the nickname is "thiago")
+```sh
+Hi, thiago 🌟
+```
+
+## Important Notes
+- **Headless mode must be disabled the first time** to allow manual login and save session data.
+- **A loop is required** for the bot to continuously listen for incoming messages.
+- **The bot does NOT have a prefix configured and does not filter its own messages** in this example. See the [documentation]() to learn how to implement that.
+
+## Next Steps
+These are just recommendations.
+
+- Implement a system of custom prefixes for each user.
+- Develop a `command handler` to structure the bot’s commands better.
+- Use a database to store bot or user information.
+- Take inspiration from Discord bot development structures.
+- Experiment and test the different functions of the library.
+- See the [Selenium documentation](https://www.selenium.dev/documentation/) to scale the project.
+
+## Disclaimers
+
+By using PyUTAL from the `utal` library, you agree to the following terms. If you do not agree, we recommend you stop using PyUTAL:
+
+- This library was created for educational purposes and must be used at your own risk. The creator and/or contributors are not responsible for any misuse of the tool.
+- This is not an official TikTok tool.
+- This tool does not connect to TikTok's official APIs; it only performs automation through `scraping`.
+
+## License
+This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for more details.
+
