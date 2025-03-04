@@ -8,9 +8,10 @@ setup(
         "selenium",  # Esto le dice a pip que instale Selenium automáticamente
     ],
     # Otras configuraciones opcionales
-    author="Tu Nombre",
+    author="Thiago Valentín Stilo Limarino",
     author_email="stilothiagovalentin@gmail.com",
     description="Unnoficial TikTok library for chatbot making. Use at your own risk.",
+    long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
     url="https://github.com/thiagostilo2121/utal",
     classifiers=[
