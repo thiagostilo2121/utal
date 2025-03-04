@@ -64,6 +64,10 @@ def main(driver):
         message = ut.Client.listen(driver=driver)  # Devuelve todos los mensajes
         print(message)
 
+        if message == "hello": 
+          user_nickaname = ut.Conversation.get_user_nickname(driver)
+          ut.Conversation.send(driver, f"Hi, {user_nickname} 🌟")
+
 if __name__ == "__main__":
     driver = startup_selenium()
     main(driver)
@@ -72,6 +76,8 @@ if __name__ == "__main__":
 ## Notas importantes
 - **El modo `headless` debe desactivarse la primera vez** para poder iniciar sesión manualmente en TikTok y guardar los datos de sesión.
 - **Es necesario utilizar un bucle** para que el bot pueda escuchar continuamente los mensajes entrantes.
+
+## 
 
 ## Licencia
 Este proyecto está licenciado bajo la **MIT License**. Consulta el archivo [LICENSE](LICENSE) para más detalles.
