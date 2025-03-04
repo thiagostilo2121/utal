@@ -12,3 +12,6 @@ __pycache__/
 # Archivos del entorno virtual
 venv/
 .env
+
+# Carpeta y archivos de testeo
+test
