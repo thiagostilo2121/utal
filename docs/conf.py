@@ -1,0 +1,3 @@
+extensions = [
+    'myst_parser',
+]
