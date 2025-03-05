@@ -10,7 +10,6 @@ class Client:
     def __init__(self):
         self.processed_msj = set()
 
-    @staticmethod
     def listen(self, driver=None, prefix: str = "", my_self: str = ""):
         if driver is None:
             raise DriverNotProvidedError(function_name="listen")

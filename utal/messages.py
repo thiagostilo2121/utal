@@ -8,7 +8,7 @@ class Messages:
         pass
 
     @staticmethod
-    def get_count(self, driver=None):
+    def get_count(driver=None):
         if driver is None:
             raise DriverNotProvidedError("get_count")
 
@@ -19,7 +19,7 @@ class Messages:
             raise ActionFailedError("get_count", e)
 
     @staticmethod
-    def set_title(self, driver, title: str):
+    def set_title(driver, title: str):
         try:
             if driver is None:
                 raise DriverNotProvidedError("set_title")
@@ -33,7 +33,7 @@ class Messages:
             raise ActionFailedError("set_title", str(e))
 
     @staticmethod
-    def send_message_to_user_by_nickname(self, driver, nickname: str, *args: str):
+    def send_message_to_user_by_nickname(driver, nickname: str, *args: str):
         if driver is None:
             raise DriverNotProvidedError("send_message_to_user_by_nickname")
 
@@ -59,7 +59,7 @@ class Messages:
             raise ActionFailedError("send_message_to_user_by_nickname", str(e))
 
     @staticmethod
-    def find_user_by_nickname(self, driver, nickname: str):
+    def find_user_by_nickname(driver, nickname: str):
         if driver is None:
             raise DriverNotProvidedError("find_user_by_nickname")
 
@@ -79,7 +79,7 @@ class Messages:
             raise ActionFailedError("find_user_by_nickname", str(e))
 
     @staticmethod
-    def enter_user_chat_by_nickname(self, driver, nickname: str):
+    def enter_user_chat_by_nickname(driver, nickname: str):
         if driver is None:
             raise DriverNotProvidedError("enter_user_chat_by_nickname")
 
