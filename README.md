@@ -89,7 +89,7 @@ Hi, thiago 🌟
 ## Important Notes
 - **Headless mode must be disabled the first time** to allow manual login and save session data.
 - **A loop is required** for the bot to continuously listen for incoming messages.
-- **The bot does NOT have a prefix configured and does not filter its own messages** in this example. See the [documentation]() to learn how to implement that.
+- **The bot does NOT have a prefix configured and does not filter its own messages** in this example. See the [documentation](docs/temp/index.md) to learn how to implement that.
 
 ## Next Steps
 These are just recommendations.

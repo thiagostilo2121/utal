@@ -12,14 +12,13 @@ PyUTAL (Unofficial TikTok Automation Library) is a Python library designed to de
 ## Contents:
 
 ### Overview
-- [Instalation](#instalation)
-- [Usage](#usage)
-
-### Types of classes
-- [For server](#for-server)
-- [By structure](#by-structure)
+- [Instalation](instalation.md)
+- [Usage](usage.md)
+- [Selenium and drivers](sandd.md)
 
 ## Classes
-- [Client](#client-class)
-- [Conversation](#conversation-class)
-- [Messages](#messages-class)
+- [Type of classes](typec.md)
+- [PyUTAL Method](pyutal.md)
+- [Client](client-class.md)
+- [Conversation](conversation-class.md)
+- [Messages](messages-class.md)

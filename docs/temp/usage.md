@@ -28,7 +28,7 @@ def startup_selenium():
 
 3. Create a `main` function with the driver and an PyUTAL app arguments
 ```python
-def main(driver, app):
+def main(driver, app: PyUTAL):
     driver.get("https://tiktok.com/messages")
     
     while True:  # Important to use loops
@@ -41,7 +41,7 @@ def main(driver, app):
             app.conversation.send(f"Hi, {user_nickname} 🌟")
 ```
 
-4. Call the both functions and start de PyUTAL app
+4. Call the both functions and start the PyUTAL app
 ```python
 if __name__ == "__main__":
     driver = startup_selenium()
@@ -99,7 +99,7 @@ if __name__ == "__main__":
 ## Important Notes
 - **Headless mode must be disabled the first time** to allow manual login and save session data.
 - **A loop is required** for the bot to continuously listen for incoming messages.
-- **The bot does NOT have a prefix configured and does not filter its own messages** in this example. See the [full documentation](#index) to learn how to implement that.
+- **The bot does NOT have a prefix configured and does not filter its own messages** in this example. See the [full documentation](index.md) to learn how to implement that.
 
 ## Next Steps
 These are just recommendations.
