@@ -1,4 +1,4 @@
-from utals import *
+from utal import *
 
 class PyUTAL:
     def __init__(self, driver):

@@ -1,6 +1,6 @@
 import time
 from selenium.webdriver.common.by import By
-from utals.exceptions import DriverNotProvidedError, ElementNotFoundError, ActionFailedError
+from utal.exceptions import DriverNotProvidedError, ElementNotFoundError, ActionFailedError
 
 class Client():
 

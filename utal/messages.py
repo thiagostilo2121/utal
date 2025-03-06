@@ -1,6 +1,6 @@
-import utals
+import utal
 from selenium.webdriver.common.by import By
-from utals.exceptions import DriverNotProvidedError, ElementNotFoundError, ActionFailedError
+from utal.exceptions import DriverNotProvidedError, ElementNotFoundError, ActionFailedError
 
 class HTMLEdition: 
     def __init__(): ...
@@ -60,7 +60,7 @@ class Messages:
 
             if user_div:
                 user_div.click()
-                utals.Conversation.send(self, *args)
+                utal.Conversation.send(self, *args)
                 return True
             return False
         except Exception as e:

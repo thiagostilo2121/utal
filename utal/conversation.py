@@ -3,7 +3,7 @@ import time
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
-from utals.exceptions import DriverNotProvidedError, ElementNotFoundError, ActionFailedError
+from utal.exceptions import DriverNotProvidedError, ElementNotFoundError, ActionFailedError
 
 class MessageSend: ...
 class Conversation():
