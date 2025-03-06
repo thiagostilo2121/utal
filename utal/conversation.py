@@ -29,7 +29,7 @@ class Conversation():
 
             driver.execute_script(
                 f'''
-                const text = `{args}`;
+                const text = '{str(args)}';
                 const dataTransfer = new DataTransfer();
                 dataTransfer.setData('text', text);
                 const event = new ClipboardEvent('paste', {{
