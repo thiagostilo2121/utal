@@ -4,6 +4,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from utal.exceptions import DriverNotProvidedError, ElementNotFoundError, ActionFailedError
 import time
+import json
 
 class MessageSend: ...
 class Conversation():
@@ -15,6 +16,7 @@ class Conversation():
         """ Send a message to the current conversation """
         driver = self.driver
         args = ''.join(*args)
+        args = json.dumps(args)
         if driver is None:
             raise DriverNotProvidedError("send")
         
@@ -29,7 +31,7 @@ class Conversation():
 
             driver.execute_script(
                 f'''
-                const text = '{str(args)}';
+                const text = {args};
                 const dataTransfer = new DataTransfer();
                 dataTransfer.setData('text', text);
                 const event = new ClipboardEvent('paste', {{
