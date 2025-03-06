@@ -2,10 +2,10 @@ from setuptools import setup, find_packages
 
 setup(
     name="utal",  # Nombre de tu librería
-    version="0.2.0",  # Versión de la librería
+    version="0.2.1",  # Versión de la librería
     packages=find_packages(),  # Encuentra los paquetes de tu librería
     install_requires=[  # Aquí especificas las dependencias
-        "selenium",  # Esto le dice a pip que instale Selenium automáticamente
+        "selenium==4.29.0",  # Esto le dice a pip que instale Selenium automáticamente
     ],
     # Otras configuraciones opcionales
     author="Thiago Valentín Stilo Limarino",
