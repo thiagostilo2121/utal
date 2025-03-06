@@ -41,7 +41,7 @@ Here is a guide to setting up a simple project using `utal`.
 
 ```python
 import os
-import utal as ut
+from utal.core import PyUTAL
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 
@@ -57,20 +57,22 @@ def startup_selenium():
     driver = webdriver.Chrome(service=Service(DRIVERPATH), options=options)
     return driver  # Important to return the driver
 
-def main(driver):
+def main(driver, app: PyUTAL):
     driver.get("https://tiktok.com/messages")
     
     while True:  # Important to use loops
-        message = ut.Client.listen(driver=driver)  # Retrieves all messages
-        print(message)
+        message = app.client.listen()  # Retrieves all messages
+        if message:
+            print(message)
 
         if message and message == "hello":  
-            user_nickname = ut.Conversation.get_user_nickname(driver)
-            ut.Conversation.send(driver, f"Hi, {user_nickname} 🌟")
+            user_nickname = app.conversation.get_user_nickname()
+            app.conversation.send(f"Hi, {user_nickname} 🌟")
 
 if __name__ == "__main__":
     driver = startup_selenium()
-    main(driver)
+    app = PyUTAL(driver)
+    main(driver, app)
 ```
 
 - Console output (if the user sends "hello")

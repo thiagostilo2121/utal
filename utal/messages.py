@@ -2,13 +2,19 @@ import utal
 from selenium.webdriver.common.by import By
 from utal.exceptions import DriverNotProvidedError, ElementNotFoundError, ActionFailedError
 
-
+class HTMLEdition: 
+    def __init__(): ...
+class MessageSend: 
+    def __init__(): ...
+class HTMLInteraction:
+    def __init__(): ...
 class Messages:
-    def __init__(self):
-        pass
+    def __init__(self, driver):
+        self.driver = driver
 
-    @staticmethod
-    def get_count(driver=None):
+
+    def get_count(self) -> int:
+        driver = self.driver
         if driver is None:
             raise DriverNotProvidedError("get_count")
 
@@ -18,8 +24,9 @@ class Messages:
         except Exception as e:
             raise ActionFailedError("get_count", e)
 
-    @staticmethod
-    def set_title(driver, title: str):
+
+    def set_title(self, title: str) -> HTMLEdition:
+        driver = self.driver
         try:
             if driver is None:
                 raise DriverNotProvidedError("set_title")
@@ -32,8 +39,9 @@ class Messages:
         except Exception as e:
             raise ActionFailedError("set_title", str(e))
 
-    @staticmethod
-    def send_message_to_user_by_nickname(driver, nickname: str, *args: str):
+
+    def send_message_to_user_by_nickname(self, nickname: str, *args: str) -> MessageSend:
+        driver = self.driver
         if driver is None:
             raise DriverNotProvidedError("send_message_to_user_by_nickname")
 
@@ -52,14 +60,15 @@ class Messages:
 
             if user_div:
                 user_div.click()
-                utal.Conversation.send(driver, *args)
+                utal.Conversation.send(self, *args)
                 return True
             return False
         except Exception as e:
             raise ActionFailedError("send_message_to_user_by_nickname", str(e))
 
-    @staticmethod
-    def find_user_by_nickname(driver, nickname: str):
+
+    def find_user_by_nickname(self, nickname: str) -> bool:
+        driver = self.driver
         if driver is None:
             raise DriverNotProvidedError("find_user_by_nickname")
 
@@ -78,8 +87,9 @@ class Messages:
         except Exception as e:
             raise ActionFailedError("find_user_by_nickname", str(e))
 
-    @staticmethod
-    def enter_user_chat_by_nickname(driver, nickname: str):
+
+    def enter_user_chat_by_nickname(self, nickname: str) -> HTMLInteraction:
+        driver = self.driver
         if driver is None:
             raise DriverNotProvidedError("enter_user_chat_by_nickname")
 

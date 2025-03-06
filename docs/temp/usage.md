@@ -2,9 +2,9 @@
 
 Here's a quick start of the usage of PyUTAL:
 
-1. First import `utal`
+1. First import the `utal` library or PyUTAL app from `utal.core`
 ```python
-import utal
+from utal.core import PyUTAL
 ```
 
 2. Create a Selenium instance. Here's a basic recommended example
@@ -26,25 +26,27 @@ def startup_selenium():
     return driver  # Important to return the driver
 ```
 
-3. Create a `main` function with the driver by argument
+3. Create a `main` function with the driver and an PyUTAL app arguments
 ```python
-def main(driver):
+def main(driver, app):
     driver.get("https://tiktok.com/messages")
     
     while True:  # Important to use loops
-        message = ut.Client.listen(driver=driver)  # Retrieves all messages
-        print(message)
+        message = app.client.listen()  # Retrieves all messages
+        if message: 
+            print(message)
 
         if message and message == "hello":  
-            user_nickname = ut.Conversation.get_user_nickname(driver)
-            ut.Conversation.send(driver, f"Hi, {user_nickname} 🌟")
+            user_nickname = app.conversation.get_user_nickname()
+            app.conversation.send(f"Hi, {user_nickname} 🌟")
 ```
 
-4. Call the both functions
+4. Call the both functions and start de PyUTAL app
 ```python
 if __name__ == "__main__":
     driver = startup_selenium()
-    main(driver)
+    app = PyUTAL(driver)
+    main(driver, app)
 ```
 
 5. If the user sends `hello` to the bot DM, the console output wil be:
@@ -60,7 +62,7 @@ Hi, thiago 🌟
 7. Here's the full code:
 ```python
 import os
-import utal as ut
+from utal.core import PyUTAL
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 
@@ -76,20 +78,22 @@ def startup_selenium():
     driver = webdriver.Chrome(service=Service(DRIVERPATH), options=options)
     return driver  # Important to return the driver
 
-def main(driver):
+def main(driver, app: PyUTAL):
     driver.get("https://tiktok.com/messages")
     
     while True:  # Important to use loops
-        message = ut.Client.listen(driver=driver)  # Retrieves all messages
-        print(message)
+        message = app.client.listen()  # Retrieves all messages
+        if message:
+            print(message)
 
         if message and message == "hello":  
-            user_nickname = ut.Conversation.get_user_nickname(driver)
-            ut.Conversation.send(driver, f"Hi, {user_nickname} 🌟")
+            user_nickname = app.conversation.get_user_nickname()
+            app.conversation.send(f"Hi, {user_nickname} 🌟")
 
 if __name__ == "__main__":
     driver = startup_selenium()
-    main(driver)
+    app = PyUTAL(driver)
+    main(driver, app)
 ```
 
 ## Important Notes

@@ -1,16 +1,15 @@
-from selenium.webdriver.support.ui import WebDriverWait
 import time
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
 from utal.exceptions import DriverNotProvidedError, ElementNotFoundError, ActionFailedError
 
+class Client():
 
-class Client:
-    def __init__(self):
-        self.processed_msj = set()
+    def __init__(self, driver, __processedmsj__):
+        self.driver = driver
+        self.__processedmsj__ = __processedmsj__
 
-    def listen(self, driver=None, prefix: str = "", my_self: str = ""):
+    def listen(self, prefix: str = "", my_self: str = "") -> str:
+        driver = self.driver
         if driver is None:
             raise DriverNotProvidedError(function_name="listen")
 
@@ -25,6 +24,7 @@ class Client:
                 if element.is_displayed():
                     div.click()
             except:
+                response = ""
                 pass  # Ignorar si no hay notificaciones nuevas
 
             messages = driver.find_elements(By.XPATH, "//p[contains(@class, 'css-1rdxtjl-PText')]")
@@ -47,6 +47,7 @@ class Client:
                                 btn.click()
                                 break
                 except Exception:
+                    response = ""
                     pass
                 driver.get("https://tiktok.com/messages")
 
@@ -57,16 +58,16 @@ class Client:
 
                 if last_message.startswith(prefix):
                     last_message_id = last_message_element.get_attribute("data-message-id")  
-                    if last_message_id in self.processed_msj:
-                        return None
-                    self.processed_msj.add(last_message_id)
+                    if last_message_id in self.__processedmsj__:
+                        return ""
+                    self.__processedmsj__.add(last_message_id)
 
                     # Verificar si el link pertenece al bot
                     links = driver.find_elements(By.XPATH, "//a[contains(@class, 'css-1qxabns-StyledLink')]")
                     if links:
                         last_link = links[-1]
                         if last_link.get_attribute("href") == f"https://www.tiktok.com/@{bot_username}":
-                            return None
+                            return ""
 
                     # Medir tiempo de respuesta
                     start_time = time.time()
@@ -85,10 +86,10 @@ class Client:
 
                     return response
         except Exception as e:
-            raise ActionFailedError(f"An error occurred while processing messages: {e}")
+            raise ActionFailedError("listen", e)
 
         time.sleep(0.5)
 
     @staticmethod
-    def test(*args):
+    def test(*args) -> None:
         print(*args)

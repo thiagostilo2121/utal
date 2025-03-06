@@ -5,12 +5,16 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from utal.exceptions import DriverNotProvidedError, ElementNotFoundError, ActionFailedError
 
-class Conversation:
-    def __init__(self): ...
+class MessageSend: ...
+class Conversation():
 
-    @staticmethod
-    def send(driver=None, *args: str):
+    def __init__(self, driver):
+        self.driver = driver
+
+    def send(self, *args: str) -> MessageSend:
         """ Send a message to the current conversation """
+        driver = self.driver
+        args = ''.join(*args)
         if driver is None:
             raise DriverNotProvidedError("send")
         
@@ -39,8 +43,8 @@ class Conversation:
         except Exception as e:
             raise ActionFailedError("send", str(e))
     
-    @staticmethod
-    def get_user_nickname(driver=None):
+    def get_user_nickname(self) -> str:
+        driver = self.driver
         if driver is None:
             raise DriverNotProvidedError("get_user_nickname")
         
@@ -49,9 +53,9 @@ class Conversation:
             return nickname.text
         except Exception:
             raise ElementNotFoundError("nickname")
-    
-    @staticmethod
-    def get_user_username(driver=None):
+
+    def get_user_username(self) -> str:
+        driver = self.driver
         if driver is None:
             raise DriverNotProvidedError("get_user_username")
         
@@ -61,8 +65,8 @@ class Conversation:
         except Exception:
             raise ElementNotFoundError("username")
 
-    @staticmethod
-    def get_user_avatar_URL(driver=None):
+    def get_user_avatar_URL(self) -> str:
+        driver = self.driver
         if driver is None:
             raise DriverNotProvidedError("get_user_avatar_URL")
         
@@ -73,8 +77,8 @@ class Conversation:
         except Exception:
             raise ElementNotFoundError("avatar")
 
-    @staticmethod   
-    def send_image(driver, img_path: str):
+    def send_image(self, img_path: str) -> MessageSend:
+        driver = self.driver
         if driver is None:
             raise DriverNotProvidedError("send_image")
         

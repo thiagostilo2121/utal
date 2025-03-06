@@ -25,8 +25,13 @@ To install PyUTAL, it is recommended to first create a virtual environment to is
    ```
 
 5. To import `utal` you may use only:
-    ```python
-    import utal
-    ```
+   ```python
+   import utal
+   ```
+
+6. To import the PyUTAL app use:
+   ```python
+   from utal.core import PyUTAL
+   ```
 
 You have finished the instalation process. Continue with the [usage](#usage).

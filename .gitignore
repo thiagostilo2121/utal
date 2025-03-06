@@ -15,6 +15,9 @@ venv/
 
 # Carpeta y archivos de testeo
 test
+ptest
+app.py
+webdriver.exe
 
 # Reflex
 pyutal-docs
