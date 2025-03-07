@@ -1,4 +1,5 @@
 import time
+import json
 from selenium.webdriver.common.by import By
 from utal.exceptions import DriverNotProvidedError, ElementNotFoundError, ActionFailedError
 
@@ -8,7 +9,7 @@ class Client():
         self.driver = driver
         self.__processedmsj__ = __processedmsj__
 
-    def listen(self, prefix: str = "", my_self: str = "") -> str:
+    def listen(self, prefix: str = "", my_self: str = "", accept_request: bool = True) -> str:
         driver = self.driver
         if driver is None:
             raise DriverNotProvidedError(function_name="listen")
@@ -35,7 +36,7 @@ class Client():
             except:
                 request = None
 
-            if request:
+            if request and accept_request:
                 request.click()
                 try:
                     divs = driver.find_elements(By.XPATH, "//div[contains(@class, 'DivItemWrapper')]")
@@ -89,6 +90,40 @@ class Client():
             raise ActionFailedError("listen", e)
 
         time.sleep(0.5)
+
+    def get_username(self) -> str:
+        driver = self.driver
+        # Localiza el script que contiene los datos JSON
+        content = driver.find_element(By.XPATH, "//script[contains(@id, '__UNIVERSAL_DATA_FOR_REHYDRATION__')]")
+        
+        # Extrae el contenido de la etiqueta <script>
+        json_data = content.get_attribute("innerHTML")
+        
+        # Parsea el JSON a un diccionario de Python
+        parsed_data = json.loads(json_data)
+        
+        # Extrae el "uniqueId", navegando en la estructura del JSON
+        username = parsed_data.get("__DEFAULT_SCOPE__", {}).get("webapp.app-context", {}).get("user", {}).get("uniqueId", "")
+
+        return "@" + username  # Retorna el uniqueId del usuario
+    
+    def get_nickname(self) -> str:
+        driver = self.driver
+        # Localiza el script que contiene los datos JSON
+        content = driver.find_element(By.XPATH, "//script[contains(@id, '__UNIVERSAL_DATA_FOR_REHYDRATION__')]")
+        
+        # Extrae el contenido de la etiqueta <script>
+        json_data = content.get_attribute("innerHTML")
+        
+        # Parsea el JSON a un diccionario de Python
+        parsed_data = json.loads(json_data)
+        
+        # Extrae el "nickName", navegando en la estructura del JSON
+        nickname = parsed_data.get("__DEFAULT_SCOPE__", {}).get("webapp.app-context", {}).get("user", {}).get("nickName", "")
+
+        return nickname  # Retorna el nickname del usuario
+
+
 
     @staticmethod
     def test(*args) -> None:
