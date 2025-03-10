@@ -7,3 +7,4 @@ class PyUTAL:
         self.client = Client(self.driver, self.__processedmsj__)
         self.conversation = Conversation(self.driver)
         self.messages = Messages(self.driver)
+        self.page = Page(self.driver)
